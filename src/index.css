@@ -1,13 +1,20 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+.films {
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 20px
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.film{
+    display: flex;
+    border: solid black 1px;
+}
+
+.poster{
+    max-width: 500px;
+    max-height: 300px;
+}
+
+.film_info{
+    margin: 0;
+    padding: 0;
 }
