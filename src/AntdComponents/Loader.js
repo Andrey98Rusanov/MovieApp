@@ -1,7 +1,7 @@
 import { LoadingOutlined } from '@ant-design/icons';
 import React from 'react';
 import { Spin } from 'antd';
-import "./Loader.css"
+import "./AntdComponents.css"
 const antIcon = (
   <LoadingOutlined
     style={{
