@@ -33,7 +33,6 @@ function Film({ filmData }) {
   }
 
   let films = [];
-  console.log(filmData);
   if (filmData != null) {
     for (let el of filmData) {
       let genre = [];
