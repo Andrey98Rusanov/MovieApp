@@ -2,7 +2,7 @@ import React from "react";
 import { format } from "date-fns";
 import { enGB } from "date-fns/locale";
 
-function Film({ filmData }) {
+function Film({ filmData, genres }) {
   function overwiewValidation(str) {
     const arr = str.split(" ");
     if (arr.length < 40) return str;
@@ -32,12 +32,16 @@ function Film({ filmData }) {
     return "https://image.tmdb.org/t/p/w500/" + img;
   }
 
+  function FindGenres(id){
+    return genres.genres.find((el) => el.id === id).name
+  }
+  console.log(filmData)
   let films = [];
   if (filmData != null) {
     for (let el of filmData) {
       let genre = [];
       for (let n of el.genre_ids) {
-        genre.push(<span>{n} </span>);
+        genre.push(<span>{FindGenres(n)} </span>);
       }
       films.push(
         <div key={el.id} className="film">

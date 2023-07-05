@@ -39,6 +39,7 @@
     display: flex;
     justify-content: center;
     justify-items: center;
+   
 }
 
 input{
@@ -54,4 +55,11 @@ input{
     margin-top: 20px;
     display: flex;
     justify-content: center;
+}
+
+.foundFilms{
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    margin-top: 10px;
 }

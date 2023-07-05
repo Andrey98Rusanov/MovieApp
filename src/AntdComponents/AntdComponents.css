@@ -2,3 +2,9 @@
     margin: 100px;
     display: grid;
 }
+
+.Pagination{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
