@@ -5,22 +5,25 @@ import Loader from "../../AntdComponents/Loader";
 import { FilmDataConsumer } from "../../FilmsService/Film-context";
 
 export default class FilmList extends Component {
-
   render() {
-    // console.log(this.props.getRating(this.props.session))
     const films = this.props.loading ? (
       <div className="loader">
         <Loader />
       </div>
     ) : (
       <FilmDataConsumer>
-        {
-          (val) => {
-            return (
-              <Film filmData={this.props.filmData} genres={val}/>
-            )
-          }
-        }
+        {(val) => {
+          return (
+            <Film
+              filmData={this.props.filmData}
+              search={this.props.search}
+              ratedFilms={this.props.ratedFilms}
+              genres={val}
+              addRating={this.props.addRating}
+              guest_id={this.props.guest_id}
+            />
+          );
+        }}
       </FilmDataConsumer>
     );
     const results =
@@ -29,7 +32,7 @@ export default class FilmList extends Component {
       ) : null;
     return (
       <>
-        {results}
+        {this.props.search ? results : null}
         {films}
       </>
     );

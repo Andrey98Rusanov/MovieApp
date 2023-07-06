@@ -47,14 +47,16 @@ export default class FilmsService extends Component {
       }
     );
     const res1 = await res.json();
+    console.log(res1);
     return res1;
   }
 
-  async getRating(id) {
+  async getRating(session) {
     const res = await fetch(
-      `https://api.themoviedb.org/3/guest_session/${id}/rated/movies?api_key=dda4727764b73e18a45ed49f2d35ba07`
+      `https://api.themoviedb.org/3/guest_session/${session}/rated/movies?api_key=dda4727764b73e18a45ed49f2d35ba07`
     );
     const res1 = await res.json();
+    console.log(res1);
     return res1;
   }
 }

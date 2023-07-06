@@ -6,6 +6,7 @@ import FilmsService from "../../FilmsService/FilmsService";
 import NetWork from "../NetWork/NetWork";
 import PaginationFilms from "../../AntdComponents/Pagination";
 import { FilmDataProvider } from "../../FilmsService/Film-context";
+import RatedButtons from "../RatedButtons/RatedButtons";
 
 export default class App extends Component {
   FilmsService = new FilmsService();
@@ -20,6 +21,8 @@ export default class App extends Component {
     page: 1,
     genres: null,
     guest_id: null,
+    search: true,
+    ratedFilms: [],
   };
 
   componentDidMount() {
@@ -29,8 +32,15 @@ export default class App extends Component {
     this.FilmsService.getGenres().then((genre) => {
       this.setState({ genres: genre });
     });
-    //217316
   }
+
+  Search = () => {
+    this.setState({ search: true });
+  };
+
+  Rated = () => {
+    this.setState({ search: false });
+  };
 
   addFilms = debounce(() => {
     this.FilmsService.getFilms(this.state.label, this.state.page).then(
@@ -40,7 +50,7 @@ export default class App extends Component {
           loading: false,
           totalPages: pages,
           totalResults: results,
-          page: 1,
+          // page: 1,
         });
       }
     );
@@ -74,21 +84,27 @@ export default class App extends Component {
       page: pageN,
     });
     this.addFilms();
+    this.getRatedFilms()
+    console.log(this.state.page)
   }
 
+  getRatedFilms = () => {
+    this.FilmsService.getRating(this.state.guest_id).then((arr) => {
+      this.setState({ ratedFilms: arr.results });
+    });
+  };
+
   render() {
-    console.log(this.state.guest_id)
-    if (this.state.guest_id){
-      console.log(this.FilmsService.addRating(217316, 1, this.state.guest_id))
-      // console.log(this.FilmsService.getRating(this.state.guest_id))
-      setTimeout(()=> console.log(this.FilmsService.getRating(this.state.guest_id), 2000)
-      )
-      console.log(1)
-    }
     return (
       <>
         <FilmDataProvider value={this.state.genres}>
+          <RatedButtons
+            getRatedFilms={this.getRatedFilms}
+            Search={this.Search}
+            Rated={this.Rated}
+          />
           <SearchForm
+            search={this.state.search}
             onLabelChange={this.onLabelChange}
             label={this.state.label}
           />
@@ -97,13 +113,18 @@ export default class App extends Component {
             internet={this.state.internet}
           />
           <FilmList
-            getRating={this.FilmsService.getRating}
+            search={this.state.search}
+            ratedFilms={this.state.ratedFilms}
+            guest_id={this.state.guest_id}
+            addRating={this.FilmsService.addRating}
             session={this.state.session}
             filmData={this.state.filmData}
             loading={this.state.loading}
             totalResults={this.state.totalResults}
           />
           <PaginationFilms
+            page={this.state.page}
+            search={this.state.search}
             loading={this.state.loading}
             filmData={this.state.filmData}
             totalPages={this.state.totalPages}
