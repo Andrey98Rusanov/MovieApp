@@ -49,7 +49,7 @@ export default class App extends Component {
           filmData: arr,
           loading: false,
           totalPages: pages,
-          totalResults: results,
+          totalResults: results
           // page: 1,
         });
       }
