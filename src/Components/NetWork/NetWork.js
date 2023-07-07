@@ -1,5 +1,5 @@
-import React from "react";
 import NetWorkAlert from "../../AntdComponents/Alert";
+import PropTypes from "prop-types";
 
 function NetWork({ onNetworkState, internet }) {
   window.onoffline = () => {
@@ -16,3 +16,13 @@ function NetWork({ onNetworkState, internet }) {
   );
 }
 export default NetWork;
+
+NetWork.defaultProps = {
+  onNetworkState: () => {},
+  internet: true
+}
+
+NetWork.propTypes = {
+  onNetworkState: PropTypes.func,
+  internet: PropTypes.bool
+}

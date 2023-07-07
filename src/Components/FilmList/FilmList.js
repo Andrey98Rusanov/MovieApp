@@ -1,8 +1,9 @@
-import React, { Component } from "react";
+import { Component } from "react";
 import "./FilmList.css";
 import Film from "../Film/Film";
 import Loader from "../../AntdComponents/Loader";
 import { FilmDataConsumer } from "../../FilmsService/Film-context";
+import PropTypes from "prop-types";
 
 export default class FilmList extends Component {
   render() {
@@ -37,4 +38,24 @@ export default class FilmList extends Component {
       </>
     );
   }
+}
+
+FilmList.defaultProps = {
+  loading: false,
+  filmData: [],
+  search: true,
+  ratedFilms: () => {},
+  addRating: () => {},
+  guest_id: 1,
+  totalResults: 0,
+}
+
+FilmList.propTypes = {
+  loading: PropTypes.bool,
+  filmData: PropTypes.array,
+  search: PropTypes.bool,
+  ratedFilms: PropTypes.func,
+  addRating: PropTypes.func,
+  guest_id: PropTypes.number,
+  totalResults: PropTypes.number,
 }

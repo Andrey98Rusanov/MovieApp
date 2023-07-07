@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import { Component } from "react";
 import debounce from "lodash.debounce";
 import FilmList from "../FilmList/FilmList";
 import SearchForm from "../SearchForm/SearchForm";
@@ -50,7 +50,7 @@ export default class App extends Component {
           loading: false,
           totalPages: pages,
           totalResults: results,
-          page: page
+          page: page,
         });
       }
     );
@@ -60,7 +60,7 @@ export default class App extends Component {
     this.setState({
       label: e.target.value,
       loading: true,
-      page: 1
+      page: 1,
     });
     let strArr = e.target.value.split("");
     if (strArr[0] !== " " && strArr[strArr.length - 1] !== " ") {
@@ -85,8 +85,8 @@ export default class App extends Component {
       page: pageN,
     });
     this.addFilms();
-    this.getRatedFilms()
-    console.log(this.state.page)
+    this.getRatedFilms();
+    console.log(this.state.page);
   }
 
   getRatedFilms = () => {

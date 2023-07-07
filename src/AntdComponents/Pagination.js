@@ -1,6 +1,6 @@
 import { Pagination } from "antd";
-import React from "react";
 import "./AntdComponents.css";
+import PropTypes from "prop-types";
 
 function PaginationFilms({
   loading,
@@ -8,7 +8,7 @@ function PaginationFilms({
   totalPages,
   onPageChange,
   search,
-  page
+  page,
 }) {
   const pagination = search ? (
     <div className="Pagination">
@@ -26,3 +26,21 @@ function PaginationFilms({
 }
 
 export default PaginationFilms;
+
+PaginationFilms.defaultProps = {
+  loading: false,
+  filmData: [],
+  totalPages: 1,
+  onPageChange: () => {},
+  search: true,
+  page: 1,
+};
+
+Pagination.propTypes = {
+  loading: PropTypes.bool,
+  filmData: PropTypes.array,
+  totalPages: PropTypes.number,
+  onPageChange: PropTypes.func,
+  search: PropTypes.bool,
+  page: PropTypes.number,
+};

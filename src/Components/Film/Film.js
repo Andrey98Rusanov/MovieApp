@@ -1,7 +1,8 @@
-import React, { Component } from "react";
+import { Component } from "react";
 import { format } from "date-fns";
 import { enGB } from "date-fns/locale";
 import { Rate } from "antd";
+import PropTypes from "prop-types";
 
 export default class Film extends Component {
   state = {
@@ -44,11 +45,11 @@ export default class Film extends Component {
   }
 
   ratingClass = (n) => {
-    if (n >= 0 && n <= 3) return "rating low"
-    if (n > 3 && n <= 5) return "rating middle"
-    if (n > 5 && n <= 7) return "rating high"
-    if (n > 7) return "rating very-high"
-  }
+    if (n >= 0 && n <= 3) return "rating low";
+    if (n > 3 && n <= 5) return "rating middle";
+    if (n > 5 && n <= 7) return "rating high";
+    if (n > 7) return "rating very-high";
+  };
 
   render() {
     const { filmData, genres, guest_id, ratedFilms, search } = this.props;
@@ -90,7 +91,9 @@ export default class Film extends Component {
                 count={10}
                 defaultValue={rating()}
               />
-              <div className={this.ratingClass(el.vote_average)}>{el.vote_average.toFixed(1)}</div>
+              <div className={this.ratingClass(el.vote_average)}>
+                {el.vote_average.toFixed(1)}
+              </div>
             </div>
           </div>
         );
@@ -100,3 +103,21 @@ export default class Film extends Component {
     return <div className="films">{films}</div>;
   }
 }
+
+Film.defaultProps = {
+  filmData: [],
+  genres: [],
+  guest_id: 1,
+  ratedFilms: [],
+  search: true,
+  addRating: () => {},
+};
+
+Film.propTypes = {
+  filmData: PropTypes.array,
+  genres: PropTypes.array,
+  guest_id: PropTypes.number,
+  ratedFilms: PropTypes.array,
+  search: PropTypes.bool,
+  addRating: PropTypes.func,
+};

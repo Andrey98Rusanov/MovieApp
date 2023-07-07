@@ -1,5 +1,6 @@
-import React, { Component } from "react";
+import { Component } from "react";
 import { Tabs } from "antd";
+import PropTypes from "prop-types";
 
 export default class RatedButtons extends Component {
   onChange = (key) => {
@@ -29,4 +30,16 @@ export default class RatedButtons extends Component {
       </div>
     );
   }
+}
+
+RatedButtons.defaultProps = {
+  Search: () => {},
+  Rated: () => {},
+  getRatedFilms: () => {}
+}
+
+RatedButtons.propTypes = {
+  Search: PropTypes.func,
+  Rated: PropTypes.func,
+  getRatedFilms: PropTypes.func,
 }
