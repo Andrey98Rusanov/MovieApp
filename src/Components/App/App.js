@@ -44,13 +44,13 @@ export default class App extends Component {
 
   addFilms = debounce(() => {
     this.FilmsService.getFilms(this.state.label, this.state.page).then(
-      ([arr, pages, results]) => {
+      ([arr, pages, results, page]) => {
         this.setState({
           filmData: arr,
           loading: false,
           totalPages: pages,
-          totalResults: results
-          // page: 1,
+          totalResults: results,
+          page: page
         });
       }
     );
@@ -60,6 +60,7 @@ export default class App extends Component {
     this.setState({
       label: e.target.value,
       loading: true,
+      page: 1
     });
     let strArr = e.target.value.split("");
     if (strArr[0] !== " " && strArr[strArr.length - 1] !== " ") {

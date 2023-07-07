@@ -1,15 +1,14 @@
 import React, { Component } from "react";
 import { format } from "date-fns";
 import { enGB } from "date-fns/locale";
-import { Rate } from 'antd';
+import { Rate } from "antd";
 
 export default class Film extends Component {
-
   state = {
     rating: 0,
-    rated: false
-  }
-  
+    rated: false,
+  };
+
   overwiewValidation(str) {
     const arr = str.split(" ");
     if (arr.length < 40) return str;
@@ -39,19 +38,25 @@ export default class Film extends Component {
     return "https://image.tmdb.org/t/p/w500/" + img;
   }
 
-  onRatingChange(rat, id, guest_id){
-    this.props.addRating(id, rat, guest_id)
-    this.setState({rating: rat, rated: true})
+  onRatingChange(rat, id, guest_id) {
+    this.props.addRating(id, rat, guest_id);
+    this.setState({ rating: rat, rated: true });
   }
 
-  render(){
-    const { filmData, genres, guest_id, ratedFilms, search } = this.props
+  ratingClass = (n) => {
+    if (n >= 0 && n <= 3) return "rating low"
+    if (n > 3 && n <= 5) return "rating middle"
+    if (n > 5 && n <= 7) return "rating high"
+    if (n > 7) return "rating very-high"
+  }
 
-    function FindGenres(id){
-      return genres.genres.find((el) => el.id === id).name
+  render() {
+    const { filmData, genres, guest_id, ratedFilms, search } = this.props;
+
+    function FindGenres(id) {
+      return genres.genres.find((el) => el.id === id).name;
     }
-  
-    const filmOrRated = search ? filmData : ratedFilms
+    const filmOrRated = search ? filmData : ratedFilms;
     let films = [];
     if (filmData != null) {
       for (let el of filmOrRated) {
@@ -60,12 +65,12 @@ export default class Film extends Component {
           genre.push(<span>{FindGenres(n)} </span>);
         }
         const rating = () => {
-          if (ratedFilms.length!==0){
-            if (ratedFilms.find(f => f.id === el.id) !== undefined){
-              return ratedFilms.find(f => f.id === el.id).rating
+          if (ratedFilms.length !== 0) {
+            if (ratedFilms.find((f) => f.id === el.id) !== undefined) {
+              return ratedFilms.find((f) => f.id === el.id).rating;
             }
-          } else return 0
-        }
+          } else return 0;
+        };
         films.push(
           <div key={el.id} className="film">
             <img
@@ -74,17 +79,24 @@ export default class Film extends Component {
               className="poster"
             />
             <div className="film_info">
-              <h1 className="title">{el.title}</h1>
+              <h3 className="title">{el.title}</h3>
               {this.dateValidation(el.release_date)}
               <div className="genre">{genre}</div>
-              <div className="discription">{this.overwiewValidation(el.overview)}</div>
-              <Rate onChange={(rat) => this.onRatingChange(rat, el.id, guest_id)} count={10} defaultValue={rating()} />
+              <div className="discription">
+                {this.overwiewValidation(el.overview)}
+              </div>
+              <Rate
+                onChange={(rat) => this.onRatingChange(rat, el.id, guest_id)}
+                count={10}
+                defaultValue={rating()}
+              />
+              <div className={this.ratingClass(el.vote_average)}>{el.vote_average.toFixed(1)}</div>
             </div>
           </div>
         );
       }
     }
-  
+
     return <div className="films">{films}</div>;
   }
 }

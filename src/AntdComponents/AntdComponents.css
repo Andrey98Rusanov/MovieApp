@@ -4,7 +4,11 @@
 }
 
 .Pagination{
+    width: 100%;
+    position: fixed;
     display: flex;
     justify-content: center;
-    margin-bottom: 10px;
+    bottom: 0;
+    background-color: inherit;
+    margin: auto;
 }
